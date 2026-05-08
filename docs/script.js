@@ -1,29 +1,34 @@
 (function () {
+  // ---------- Video gallery ----------
   const videos = [
-    'videos/reasonvos_002b4dce_exp6_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_0770ad03_exp0_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_08746283_exp0_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_50E06_exp0_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_6eac00b5f389_exp0_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_7177T_exp0_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_82_xz40b41FHfs_exp0_wf0.30_overlay_with_expr.mp4',
-    'videos/reasonvos_GQ341_exp0_wf0.30_overlay_with_expr.mp4',
+    { src: 'videos/reasonvos_002b4dce_exp6_wf0.30_overlay_with_expr.mp4', label: 'Sample 1' },
+    { src: 'videos/reasonvos_0770ad03_exp0_wf0.30_overlay_with_expr.mp4', label: 'Sample 2' },
+    { src: 'videos/reasonvos_08746283_exp0_wf0.30_overlay_with_expr.mp4', label: 'Sample 3' },
+    { src: 'videos/reasonvos_50E06_exp0_wf0.30_overlay_with_expr.mp4',    label: 'Sample 4' },
+    { src: 'videos/reasonvos_6eac00b5f389_exp0_wf0.30_overlay_with_expr.mp4', label: 'Sample 5' },
+    { src: 'videos/reasonvos_7177T_exp0_wf0.30_overlay_with_expr.mp4',    label: 'Sample 6' },
+    { src: 'videos/reasonvos_82_xz40b41FHfs_exp0_wf0.30_overlay_with_expr.mp4', label: 'Sample 7' },
+    { src: 'videos/reasonvos_GQ341_exp0_wf0.30_overlay_with_expr.mp4',    label: 'Sample 8' },
   ];
 
   const grid = document.getElementById('video-grid');
   const lightbox = document.getElementById('lightbox');
   const lightboxVideo = document.getElementById('lightbox-video');
+  const lightboxCaption = document.getElementById('lightbox-caption');
   const lightboxClose = document.getElementById('lightbox-close');
 
-  function makeTile(src, idx) {
+  const PLAY_SVG =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
+
+  function makeTile(item) {
     const tile = document.createElement('div');
     tile.className = 'video-tile';
     tile.setAttribute('role', 'button');
     tile.setAttribute('tabindex', '0');
-    tile.setAttribute('aria-label', `Play sample ${idx + 1}`);
+    tile.setAttribute('aria-label', `Play ${item.label}`);
 
     const video = document.createElement('video');
-    video.src = src;
+    video.src = item.src;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
@@ -33,18 +38,17 @@
     overlay.className = 'play-overlay';
     const playIcon = document.createElement('div');
     playIcon.className = 'play-icon';
-    playIcon.innerHTML = '&#9654;';
+    playIcon.innerHTML = PLAY_SVG;
     overlay.appendChild(playIcon);
 
     const label = document.createElement('div');
     label.className = 'label';
-    label.textContent = `Sample ${idx + 1}`;
+    label.textContent = item.label;
 
     tile.appendChild(video);
     tile.appendChild(overlay);
     tile.appendChild(label);
 
-    // Hover preview
     tile.addEventListener('mouseenter', () => {
       const p = video.play();
       if (p && typeof p.catch === 'function') p.catch(() => {});
@@ -54,8 +58,7 @@
       video.currentTime = 0;
     });
 
-    // Click to open
-    const open = () => openLightbox(src);
+    const open = () => openLightbox(item);
     tile.addEventListener('click', open);
     tile.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -67,8 +70,9 @@
     return tile;
   }
 
-  function openLightbox(src) {
-    lightboxVideo.src = src;
+  function openLightbox(item) {
+    lightboxVideo.src = item.src;
+    if (lightboxCaption) lightboxCaption.textContent = item.label;
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -85,13 +89,70 @@
     document.body.style.overflow = '';
   }
 
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) closeLightbox();
   });
 
-  videos.forEach((src, i) => grid.appendChild(makeTile(src, i)));
+  if (grid) {
+    videos.forEach((item) => grid.appendChild(makeTile(item)));
+  }
+
+  // ---------- Sticky-nav scroll state ----------
+  const topnav = document.getElementById('topnav');
+  if (topnav) {
+    const onScroll = () => {
+      topnav.classList.toggle('scrolled', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ---------- Reveal-on-scroll ----------
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && reveals.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.05 }
+    );
+    reveals.forEach((el) => io.observe(el));
+  } else {
+    reveals.forEach((el) => el.classList.add('is-visible'));
+  }
+
+  // ---------- Copy BibTeX ----------
+  const copyBtn = document.getElementById('copy-btn');
+  const bibtexCode = document.getElementById('bibtex-code');
+  if (copyBtn && bibtexCode) {
+    const label = copyBtn.querySelector('.copy-label');
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(bibtexCode.innerText);
+        copyBtn.classList.add('copied');
+        if (label) label.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          if (label) label.textContent = 'Copy';
+        }, 1800);
+      } catch (err) {
+        const range = document.createRange();
+        range.selectNode(bibtexCode);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
+  }
 })();
