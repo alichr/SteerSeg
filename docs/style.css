@@ -18,10 +18,10 @@
   --mute:         #4b5563;   /* body muted */
   --mute-2:       #6b7280;   /* very muted */
 
-  --accent:       #4338ca;   /* indigo-700 — links / CTA */
-  --accent-strong:#3730a3;   /* indigo-800 — hover */
-  --accent-soft:  #eef2ff;   /* indigo-50 — tinted backgrounds */
-  --accent-dim:   #c7d2fe;   /* indigo-200 — soft details */
+  --accent:       #0e7490;   /* deep teal — links / CTA */
+  --accent-strong:#155e75;   /* darker teal — hover */
+  --accent-soft:  #ecfeff;   /* very pale teal — tinted backgrounds */
+  --accent-dim:   #a5f3fc;   /* light teal — soft details */
 
   /* —— Type scale (fluid) —— */
   --fs-display:  clamp(2rem, 4.6vw, 3.25rem);
@@ -194,7 +194,7 @@ em {
   border-bottom: 1px solid var(--line);
   background:
     radial-gradient(ellipse 75% 55% at 50% -8%,
-                    rgba(67, 56, 202, 0.07), transparent 70%),
+                    rgba(14, 116, 144, 0.08), transparent 70%),
     var(--bg);
 }
 
