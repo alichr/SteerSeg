@@ -1,25 +1,16 @@
 (function () {
-  // Each clip's referring expression — drop the actual ReasonVOS query
-  // text into `expression` to surface it under the tile and in the
-  // lightbox. The video itself overlays the expression on every frame;
-  // this just lets the page show it as text too.
+  // The referring expression is overlaid on every frame of each clip,
+  // so the video carries the language by itself; only the dataset and
+  // clip index need to live in HTML.
   const VIDEOS = [
-    { src: 'videos/reasonvos_002b4dce_exp6_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '01' },
-    { src: 'videos/reasonvos_0770ad03_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '02' },
-    { src: 'videos/reasonvos_08746283_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '03' },
-    { src: 'videos/reasonvos_50E06_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '04' },
-    { src: 'videos/reasonvos_6eac00b5f389_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '05' },
-    { src: 'videos/reasonvos_7177T_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '06' },
-    { src: 'videos/reasonvos_82_xz40b41FHfs_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '07' },
-    { src: 'videos/reasonvos_GQ341_exp0_wf0.30_overlay_with_expr.mp4',
-      expression: '', dataset: 'ReasonVOS', id: '08' },
+    { src: 'videos/reasonvos_002b4dce_exp6_wf0.30_overlay_with_expr.mp4',    dataset: 'ReasonVOS', id: '01' },
+    { src: 'videos/reasonvos_0770ad03_exp0_wf0.30_overlay_with_expr.mp4',    dataset: 'ReasonVOS', id: '02' },
+    { src: 'videos/reasonvos_08746283_exp0_wf0.30_overlay_with_expr.mp4',    dataset: 'ReasonVOS', id: '03' },
+    { src: 'videos/reasonvos_50E06_exp0_wf0.30_overlay_with_expr.mp4',       dataset: 'ReasonVOS', id: '04' },
+    { src: 'videos/reasonvos_6eac00b5f389_exp0_wf0.30_overlay_with_expr.mp4', dataset: 'ReasonVOS', id: '05' },
+    { src: 'videos/reasonvos_7177T_exp0_wf0.30_overlay_with_expr.mp4',       dataset: 'ReasonVOS', id: '06' },
+    { src: 'videos/reasonvos_82_xz40b41FHfs_exp0_wf0.30_overlay_with_expr.mp4', dataset: 'ReasonVOS', id: '07' },
+    { src: 'videos/reasonvos_GQ341_exp0_wf0.30_overlay_with_expr.mp4',       dataset: 'ReasonVOS', id: '08' },
   ];
 
   const PLAY_SVG =
@@ -28,7 +19,6 @@
   const grid = document.getElementById('video-grid');
   const lightbox = document.getElementById('lightbox');
   const lightboxVideo = document.getElementById('lightbox-video');
-  const lightboxExpr = document.getElementById('lightbox-expr');
   const lightboxMeta = document.getElementById('lightbox-meta');
   const lightboxClose = document.getElementById('lightbox-close');
   const lightboxPrev = document.getElementById('lightbox-prev');
@@ -37,22 +27,19 @@
   let currentIndex = 0;
   let lastFocused = null;
 
-  function quote(text) {
-    return '“' + text + '”';
+  function attachSrc(video) {
+    if (!video.src && video.dataset.src) {
+      video.src = video.dataset.src;
+      video.preload = 'metadata';
+    }
   }
 
   function makeTile(item, index) {
-    const article = document.createElement('article');
-    article.className = 'video-tile';
-
-    const frame = document.createElement('div');
-    frame.className = 'video-tile-frame';
-    frame.setAttribute('role', 'button');
-    frame.setAttribute('tabindex', '0');
-    frame.setAttribute(
-      'aria-label',
-      item.expression ? 'Play clip: ' + item.expression : 'Play clip ' + item.id
-    );
+    const tile = document.createElement('div');
+    tile.className = 'video-tile';
+    tile.setAttribute('role', 'button');
+    tile.setAttribute('tabindex', '0');
+    tile.setAttribute('aria-label', 'Play ' + item.dataset + ' clip ' + item.id);
 
     const video = document.createElement('video');
     video.dataset.src = item.src;
@@ -60,52 +47,36 @@
     video.loop = true;
     video.playsInline = true;
     video.preload = 'none';
-    frame.appendChild(video);
+    tile.appendChild(video);
 
     const icon = document.createElement('span');
     icon.className = 'video-tile-icon';
     icon.innerHTML = PLAY_SVG;
-    frame.appendChild(icon);
+    tile.appendChild(icon);
 
     const meta = document.createElement('span');
     meta.className = 'video-tile-meta';
     meta.textContent = item.dataset + ' · ' + item.id;
-    frame.appendChild(meta);
+    tile.appendChild(meta);
 
-    article.appendChild(frame);
-
-    if (item.expression) {
-      const expr = document.createElement('p');
-      expr.className = 'video-tile-expr';
-      expr.textContent = quote(item.expression);
-      article.appendChild(expr);
-    }
-
-    frame.addEventListener('mouseenter', () => {
+    tile.addEventListener('mouseenter', () => {
       attachSrc(video);
       const p = video.play();
       if (p && typeof p.catch === 'function') p.catch(() => {});
     });
-    frame.addEventListener('mouseleave', () => {
+    tile.addEventListener('mouseleave', () => {
       video.pause();
       try { video.currentTime = 0; } catch (e) {}
     });
-    frame.addEventListener('click', () => openLightbox(index, frame));
-    frame.addEventListener('keydown', (e) => {
+    tile.addEventListener('click', () => openLightbox(index, tile));
+    tile.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openLightbox(index, frame);
+        openLightbox(index, tile);
       }
     });
 
-    return { article: article, video: video };
-  }
-
-  function attachSrc(video) {
-    if (!video.src && video.dataset.src) {
-      video.src = video.dataset.src;
-      video.preload = 'metadata';
-    }
+    return { tile: tile, video: video };
   }
 
   function openLightbox(index, originEl) {
@@ -121,10 +92,6 @@
   function renderLightbox() {
     const item = VIDEOS[currentIndex];
     lightboxVideo.src = item.src;
-    if (lightboxExpr) {
-      lightboxExpr.textContent = item.expression ? quote(item.expression) : '';
-      lightboxExpr.style.display = item.expression ? '' : 'none';
-    }
     if (lightboxMeta) {
       lightboxMeta.textContent =
         item.dataset + ' · clip ' + (currentIndex + 1) + ' of ' + VIDEOS.length;
@@ -169,13 +136,15 @@
   if (grid) {
     VIDEOS.forEach((item, i) => {
       const built = makeTile(item, i);
-      grid.appendChild(built.article);
+      grid.appendChild(built.tile);
       tileVideos.push(built.video);
     });
   }
 
   // Lazy-load video sources when tiles enter the viewport so initial
-  // page load doesn't fire eight metadata requests at once.
+  // page load doesn't fire eight metadata requests at once. Loading
+  // metadata renders the first frame as a poster — and since the
+  // expression is burned in from frame 0, that's the thumbnail.
   if ('IntersectionObserver' in window && tileVideos.length) {
     const lazyIo = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
