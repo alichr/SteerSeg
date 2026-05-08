@@ -267,13 +267,22 @@
   </footer>
 
   <!-- ===== Lightbox ===== -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Video preview">
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video preview">
     <button class="lightbox-close" id="lightbox-close" aria-label="Close">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous clip">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next clip">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
     <div class="lightbox-content">
       <video id="lightbox-video" controls playsinline></video>
-      <div class="lightbox-caption" id="lightbox-caption"></div>
+      <div class="lightbox-caption">
+        <p class="lightbox-expr" id="lightbox-expr"></p>
+        <p class="lightbox-meta" id="lightbox-meta"></p>
+      </div>
     </div>
   </div>
 
