@@ -520,28 +520,6 @@ em {
   .contribution { padding: var(--sp-4); }
 }
 
-.frozen-note {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin: var(--sp-6) auto 0;
-  max-width: 720px;
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--accent-soft);
-  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
-  border-radius: var(--r);
-  color: var(--ink-2);
-  font-size: var(--fs-small);
-  line-height: 1.55;
-  text-align: left;
-}
-.frozen-note .ico {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  color: var(--accent);
-}
-
 /* ============================================================
    Results — stat tiles
    ============================================================ */
