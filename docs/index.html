@@ -126,6 +126,14 @@
           SteerSeg adopts an <b>input-level attention steering</b> strategy that operates directly at the source of attention formation. We freeze a large vision-language model and a segmentation model, and learn only a small set of soft prompts. Combined with a single-step Chain-of-Thought reasoning step, this produces concentrated, semantically aligned attention maps that drive accurate point prompts for SAM2.
         </p>
 
+        <figure class="figure pipeline-figure">
+          <img src="pipeline.png" loading="lazy" alt="SteerSeg pipeline. Stage 1 — CoT Reasoning: the input expression is fed to a frozen LVLM that produces discriminative attributes. Stage 2 — Soft prompts and the augmented expression are passed to the LVLM; attention rollout from the response token across frame- and video-level streams produces a refined spatial map. Stage 3 — Point prompts derived from the map drive SAM2 to generate candidate tracklets, which are ranked by correlation with the rollout maps to select the final mask." />
+          <figcaption>
+            <strong>Figure&nbsp;2. SteerSeg pipeline.</strong>
+            A single-step Chain-of-Thought elicits discriminative attributes that augment the input expression. The augmented prompt is passed to a frozen LVLM together with a small set of learnable soft prompts; attention rollout from the response token, computed at both frame and video granularities, yields a refined spatial map that is converted into point prompts for SAM2. Candidate tracklets are then ranked by correlation against the rollout maps to select the final mask sequence.
+          </figcaption>
+        </figure>
+
         <ol class="contributions">
           <li class="contribution">
             <span class="contribution-num">1</span>

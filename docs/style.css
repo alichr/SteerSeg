@@ -416,6 +416,18 @@ em {
   margin-right: auto;
 }
 
+/* —— Method pipeline figure —— */
+.pipeline-figure {
+  margin: 0 0 var(--sp-6);
+  text-align: left;
+}
+.pipeline-figure figcaption {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 /* ============================================================
    Abstract & prose
    ============================================================ */
