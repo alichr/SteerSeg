@@ -3,182 +3,216 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SteerSeg — Attention Steering for Reasoning Video Segmentation</title>
-  <meta name="description" content="SteerSeg: a lightweight framework that steers attention at its source through learnable soft prompts and reasoning-guided Chain-of-Thought, for reasoning video segmentation." />
-  <meta name="theme-color" content="#faf9f6" />
+  <title>SteerSeg: Attention Steering for Reasoning Video Segmentation</title>
+  <meta name="description" content="SteerSeg: a lightweight framework that steers attention at its source through learnable soft prompts and reasoning-guided Chain-of-Thought, for reasoning video segmentation. Submitted to NeurIPS 2026." />
+  <meta name="theme-color" content="#ffffff" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="SteerSeg — Attention Steering for Reasoning Video Segmentation" />
-  <meta property="og:description" content="A lightweight framework that steers attention at its source through learnable soft prompts and reasoning-guided Chain-of-Thought." />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SteerSeg: Attention Steering for Reasoning Video Segmentation" />
+  <meta property="og:description" content="A lightweight framework that steers attention at its source through learnable soft prompts and Chain-of-Thought for reasoning video segmentation." />
+  <meta property="og:type" content="article" />
   <meta property="og:image" content="teaser.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f0f10'/%3E%3Cpath d='M19 38 L32 24 L45 38' stroke='%23faf9f6' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23111827'/%3E%3Cpath d='M19 38 L32 24 L45 38' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 
-  <!-- Fonts: Instrument Serif (display) + Inter (UI) + JetBrains Mono (code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== Navigation ===== -->
+  <!-- ===== Top nav ===== -->
   <nav class="nav" id="nav" aria-label="Section navigation">
     <div class="container nav-inner">
       <a class="nav-brand" href="#top">
         <span class="nav-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="20" height="20"><rect width="24" height="24" rx="6" fill="currentColor"/><path d="M6.5 15 L12 9 L17.5 15" stroke="#faf9f6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20"><rect width="24" height="24" rx="5" fill="currentColor"/><path d="M6.5 15 L12 9 L17.5 15" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
-        <span class="nav-name">SteerSeg</span>
+        SteerSeg
       </a>
       <div class="nav-links">
-        <a href="#tldr">Overview</a>
-        <a href="#teaser">Method</a>
-        <a href="#highlights">Highlights</a>
-        <a href="#videos">Results</a>
-        <a href="#bibtex">Cite</a>
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#qualitative">Qualitative</a>
+        <a href="#bibtex">BibTeX</a>
       </div>
     </div>
   </nav>
 
   <a id="top"></a>
 
-  <!-- ===== Hero ===== -->
-  <header class="hero">
-    <div class="container hero-inner">
-      <span class="eyebrow">Preprint &nbsp;&middot;&nbsp; 2026</span>
+  <!-- ===== Header ===== -->
+  <header class="paper-header">
+    <div class="container">
+      <div class="venue">NeurIPS 2026 &nbsp;<span class="venue-sep">&middot;</span>&nbsp; Submission</div>
 
-      <h1 class="title">SteerSeg</h1>
-      <p class="subtitle"><em>Attention Steering for</em> Reasoning Video Segmentation</p>
+      <h1 class="paper-title">SteerSeg: Attention Steering for<br/>Reasoning Video Segmentation</h1>
 
-      <ul class="authors" aria-label="Authors">
-        <li>Ali Cheraghian<sup>1</sup></li>
+      <ol class="authors" aria-label="Authors">
+        <li><a href="mailto:ali.cheraghian@mq.edu.au">Ali Cheraghian</a><sup>1</sup></li>
         <li>Hamidreza Dastmalchi<sup>2</sup></li>
         <li>Abdelwahed Khamis<sup>3</sup></li>
         <li>Morteza Saberi<sup>4</sup></li>
         <li>Aijun An<sup>2</sup></li>
         <li>Lars Petersson<sup>3</sup></li>
-      </ul>
+      </ol>
 
-      <ul class="affiliations" aria-label="Affiliations">
+      <ol class="affiliations" aria-label="Affiliations">
         <li><sup>1</sup>Macquarie University</li>
         <li><sup>2</sup>York University</li>
         <li><sup>3</sup>CSIRO Data61</li>
         <li><sup>4</sup>University of Technology Sydney</li>
-      </ul>
+      </ol>
 
       <div class="links">
-        <a class="btn btn-primary" href="SteerSeg.pdf" target="_blank" rel="noopener">
-          <!-- lucide: file-text -->
+        <a class="btn" href="SteerSeg.pdf" target="_blank" rel="noopener">
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
           <span>Paper</span>
         </a>
         <a class="btn" href="#" aria-disabled="true" title="arXiv link coming soon">
-          <!-- lucide: book-open -->
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           <span>arXiv</span>
-          <span class="soon">Soon</span>
+          <span class="soon">soon</span>
         </a>
         <a class="btn" href="https://github.com/alichr/SteerSeg" target="_blank" rel="noopener">
-          <!-- lucide: github -->
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
           <span>Code</span>
         </a>
-        <a class="btn" href="#" aria-disabled="true" title="Data release coming soon">
-          <!-- lucide: database -->
-          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
-          <span>Data</span>
-          <span class="soon">Soon</span>
+        <a class="btn" href="#bibtex">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>BibTeX</span>
         </a>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- ===== TL;DR ===== -->
-    <section id="tldr" class="section section-tldr reveal">
-      <div class="container narrow">
-        <span class="kicker">Overview</span>
-        <p class="lede">
-          SteerSeg steers attention <em>at its source</em> by training a small set of learnable soft prompts on a frozen LVLM, paired with reasoning-guided Chain-of-Thought. The result: spatially concentrated attention maps that translate into accurate point prompts for reasoning video segmentation.
-        </p>
-      </div>
-    </section>
 
     <!-- ===== Teaser figure ===== -->
-    <section id="teaser" class="section reveal">
+    <section class="section section-teaser reveal">
       <div class="container">
-        <span class="kicker">Diagnostic study</span>
         <figure class="figure">
-          <img src="teaser.png" alt="Diagnostic study and effect of attention refinement on masking. For the query 'a white dog with gray patches', raw and contrast attention produce ambiguous masks; soft prompts plus CoT reasoning yield concentrated attention and correct masks." />
+          <img src="teaser.png" alt="Diagnostic study and effect of attention refinement on masking. For the query 'a white dog with gray patches', raw and contrast attention produce ambiguous masks, while soft prompts plus CoT reasoning yield concentrated attention and correct masks." />
           <figcaption>
-            <span><strong>(a)</strong> A diagnostic study reveals a discrepancy between reasoning and grounding: the LVLM often identifies the correct target object, yet the corresponding attention remains poorly localized, leading to inaccurate masks.</span>
-            <span><strong>(b)</strong> Effect of attention refinement on segmentation. Raw and contrast-based attention produce ambiguous localization, while soft prompts and CoT reasoning progressively improve attention quality and segmentation accuracy.</span>
+            <strong>Figure&nbsp;1.</strong>
+            <strong>(a)</strong> A diagnostic study reveals a discrepancy between reasoning and grounding: the LVLM often identifies the correct target object, yet the corresponding attention remains poorly localized, leading to inaccurate masks.
+            <strong>(b)</strong> Effect of attention refinement on segmentation. Raw and contrast-based attention produce ambiguous localization, while soft prompts and Chain-of-Thought reasoning progressively improve attention quality and segmentation accuracy.
           </figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- ===== Highlights ===== -->
-    <section id="highlights" class="section section-alt reveal">
-      <div class="container">
-        <header class="section-head">
-          <span class="kicker">Highlights</span>
-          <h2>What makes SteerSeg work.</h2>
-        </header>
-        <div class="cards">
-          <article class="card">
-            <span class="card-ico" aria-hidden="true">
-              <!-- lucide: target -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            </span>
-            <h3>Steer at the source</h3>
-            <p>Reshape attention through input-level conditioning, instead of post-hoc patching of attention maps.</p>
-          </article>
-
-          <article class="card">
-            <span class="card-ico" aria-hidden="true">
-              <!-- lucide: sparkles -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-            </span>
-            <h3>CoT-guided reasoning</h3>
-            <p>Chain-of-Thought attributes disambiguate similar objects and direct attention to the correct instance.</p>
-          </article>
-
-          <article class="card">
-            <span class="card-ico" aria-hidden="true">
-              <!-- lucide: lock -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </span>
-            <h3>Frozen model, learned prompts</h3>
-            <p>The LVLM and segmentation model stay frozen. Only a small set of soft prompts is trained — preserving pretrained reasoning while adapting grounding.</p>
-          </article>
-
-          <article class="card">
-            <span class="card-ico" aria-hidden="true">
-              <!-- lucide: globe -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            </span>
-            <h3>Strong generalization</h3>
-            <p>Trained only on Ref-YouTube-VOS, yet generalizes across diverse referring &amp; reasoning video segmentation benchmarks.</p>
-          </article>
+    <!-- ===== Abstract ===== -->
+    <section id="abstract" class="section reveal">
+      <div class="container narrow">
+        <h2 class="section-title">Abstract</h2>
+        <div class="prose">
+          <p>
+            Video reasoning segmentation requires localizing objects across video frames from natural language expressions, often involving spatial reasoning and implicit references. Recent approaches leverage frozen large vision-language models (LVLMs) by extracting attention maps and using them as spatial priors for segmentation, enabling training-free grounding. However, these attention maps are optimized for text generation rather than spatial localization, often resulting in diffuse and ambiguous grounding signals.
+          </p>
+          <p>
+            In this work, we introduce <b>SteerSeg</b>, a lightweight framework that identifies attention misalignment as the key bottleneck in attention-based grounding and proposes to <em>steer attention at its source</em> through input-level conditioning. SteerSeg combines learnable soft prompts with reasoning-guided Chain-of-Thought (CoT) prompting. The soft prompts reshape the attention distribution to produce more spatially concentrated maps, while CoT-derived attributes resolve ambiguity among similar objects by guiding attention toward the correct instance. The resulting attention maps are converted into point prompts across keyframes to guide a segmentation model, while candidate tracklets are ranked and selected using correlation-based scoring.
+          </p>
+          <p>
+            Our approach freezes the LVLM and segmentation model parameters and learns only a small set of soft prompts, preserving the model's pretrained reasoning capabilities while significantly improving grounding. Despite being trained only on Ref-YouTube-VOS, SteerSeg generalizes well across diverse benchmarks, significantly improving the spatial grounding capability of LVLMs.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- ===== Videos ===== -->
-    <section id="videos" class="section reveal">
+    <!-- ===== Method ===== -->
+    <section id="method" class="section section-alt reveal">
       <div class="container">
-        <header class="section-head">
-          <span class="kicker">Qualitative results</span>
-          <h2>Selected segmentation samples.</h2>
-          <p class="muted">Hover or tap a clip to play; click to enlarge.</p>
-        </header>
+        <h2 class="section-title">Method</h2>
+        <p class="section-lede">
+          SteerSeg adopts an <b>input-level attention steering</b> strategy that operates directly at the source of attention formation. We freeze a large vision-language model and a segmentation model, and learn only a small set of soft prompts. Combined with a single-step Chain-of-Thought reasoning step, this produces concentrated, semantically aligned attention maps that drive accurate point prompts for SAM2.
+        </p>
 
+        <ol class="contributions">
+          <li class="contribution">
+            <span class="contribution-num">1</span>
+            <div class="contribution-body">
+              <h3>Soft Prompt Steering</h3>
+              <p>A small set of learnable soft prompts is prepended to a frozen LVLM and participates in self-attention at every layer. By influencing attention throughout the network, these prompts reshape how the response token attends to visual tokens, yielding more concentrated and spatially aligned attention maps.</p>
+            </div>
+          </li>
+          <li class="contribution">
+            <span class="contribution-num">2</span>
+            <div class="contribution-body">
+              <h3>Chain-of-Thought Attribute Reasoning</h3>
+              <p>A lightweight single-step CoT module asks the LVLM to generate discriminative attributes (color, position, motion) for the referred object. These attributes are appended to the original prompt and disambiguate visually similar instances, guiding attention to the correct target.</p>
+            </div>
+          </li>
+          <li class="contribution">
+            <span class="contribution-num">3</span>
+            <div class="contribution-body">
+              <h3>Dual-Granularity Rollout</h3>
+              <p>Attention rollout is computed from the response token across two complementary modalities — frame-level and video-level — balancing fine-grained spatial precision with temporal consistency. The refined maps are converted into point prompts across sampled keyframes.</p>
+            </div>
+          </li>
+          <li class="contribution">
+            <span class="contribution-num">4</span>
+            <div class="contribution-body">
+              <h3>Correlation-Based Tracklet Selection</h3>
+              <p>Candidate masks are propagated by SAM2 into tracklets, then ranked by Pearson correlation with the rollout attention tensors at both frame and video granularities. The most consistent tracklet is selected — robust to occlusion, fast motion, and visually similar distractors.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="frozen-note">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          The LVLM and segmentation model parameters remain <b>frozen</b>. Only a small set of soft prompts is learned, preserving the LVLM's pretrained reasoning while substantially improving grounding.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Results ===== -->
+    <section id="results" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Results</h2>
+        <p class="section-lede">
+          Trained <b>only on Ref-YouTube-VOS</b>, SteerSeg generalizes across five referring/reasoning VOS benchmarks. With frozen LVLM + SAM2 backbones, it consistently outperforms training-free attention-based baselines (Loc-Head, DecAF) and is competitive with end-to-end trained cascades. The numbers below report J&amp;F gain over the strongest training-free baseline (DecAF) using a Qwen2.5-VL backbone.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value">+6.2</div>
+            <div class="stat-label">J&amp;F on Ref-DAVIS</div>
+            <div class="stat-detail">81.4 vs DecAF 75.2</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">+6.2</div>
+            <div class="stat-label">J&amp;F on ReasonVOS</div>
+            <div class="stat-detail">65.9 vs DecAF 59.7</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">+6.3</div>
+            <div class="stat-label">J&amp;F on ReVOS (Overall)</div>
+            <div class="stat-detail">56.6 vs DecAF 50.3</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">Frozen</div>
+            <div class="stat-label">LVLM + SAM2</div>
+            <div class="stat-detail">only soft prompts trained</div>
+          </div>
+        </div>
+
+        <p class="results-note muted">
+          Results aggregated across four LVLM backbones (LLaVA-OV-7B, InternVL3-8B, Qwen2-VL-7B, Qwen2.5-VL-7B) show consistent gains over training-free baselines on every benchmark. See the paper for full comparison tables, including end-to-end trained cascades on MeViS and Ref-YouTube-VOS.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Qualitative results ===== -->
+    <section id="qualitative" class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Qualitative Results</h2>
+        <p class="section-lede">
+          Selected segmentation results on ReasonVOS, with the input expression overlaid on each frame. Hover or tap a clip to play; click to enlarge.
+        </p>
         <div class="video-grid" id="video-grid">
           <!-- video tiles inserted by script -->
         </div>
@@ -186,28 +220,34 @@
     </section>
 
     <!-- ===== BibTeX ===== -->
-    <section id="bibtex" class="section section-alt reveal">
+    <section id="bibtex" class="section reveal">
       <div class="container narrow">
-        <header class="section-head">
-          <span class="kicker">Citation</span>
-          <h2>If SteerSeg is useful in your work, please cite.</h2>
-        </header>
+        <h2 class="section-title">BibTeX</h2>
+        <p class="section-lede muted">If SteerSeg is useful in your work, please cite:</p>
         <div class="bibtex-wrap">
-          <pre class="bibtex"><code id="bibtex-code">@article{steerseg2026,
+          <pre class="bibtex"><code id="bibtex-code">@article{cheraghian2026steerseg,
   title   = {SteerSeg: Attention Steering for Reasoning Video Segmentation},
   author  = {Cheraghian, Ali and Dastmalchi, Hamidreza and Khamis, Abdelwahed and
              Saberi, Morteza and An, Aijun and Petersson, Lars},
-  year    = {2026},
-  note    = {Preprint}
+  journal = {arXiv preprint},
+  year    = {2026}
 }</code></pre>
           <button class="copy-btn" id="copy-btn" type="button" aria-label="Copy BibTeX to clipboard">
-            <!-- lucide: copy -->
             <svg class="ico copy-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            <!-- lucide: check -->
             <svg class="ico check-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             <span class="copy-label">Copy</span>
           </button>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== Acknowledgments ===== -->
+    <section id="ack" class="section section-thin reveal">
+      <div class="container narrow">
+        <h2 class="section-title section-title-sm">Acknowledgments</h2>
+        <p class="prose-sm muted">
+          We thank the broader vision-language community for releasing the LVLMs and segmentation models that this work builds on. Webpage template inspired by <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a>.
+        </p>
       </div>
     </section>
   </main>
@@ -215,17 +255,17 @@
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="container footer-inner">
-      <span class="footer-brand">SteerSeg</span>
-      <span class="footer-meta">&copy; 2026 The authors. <a href="https://github.com/alichr/SteerSeg" target="_blank" rel="noopener">Source<span class="ext" aria-hidden="true">
-        <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-      </span></a></span>
+      <span>&copy; 2026 SteerSeg authors</span>
+      <a class="footer-link" href="https://github.com/alichr/SteerSeg" target="_blank" rel="noopener">
+        Source on GitHub
+        <svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </a>
     </div>
   </footer>
 
   <!-- ===== Lightbox ===== -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Video preview">
     <button class="lightbox-close" id="lightbox-close" aria-label="Close">
-      <!-- lucide: x -->
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
     <div class="lightbox-content">
