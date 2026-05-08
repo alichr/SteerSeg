@@ -6,21 +6,22 @@
 
 :root {
   /* —— Palette ——
-     Pure white surface with a single academic-blue accent. */
+     White surface, cool-neutral grays, indigo signature accent. */
   --bg:           #ffffff;
-  --bg-alt:       #f7f8fa;   /* alternating section background */
+  --bg-alt:       #f6f7fb;   /* alternating section background, cool */
   --surface:      #ffffff;
-  --line:         #e5e7eb;   /* hairline borders */
-  --line-2:       #d1d5db;   /* stronger border / hover */
+  --line:         #e4e7ef;   /* hairline borders */
+  --line-2:       #c8cdd9;   /* stronger border / hover */
 
   --ink:          #0b1220;   /* near-black, slightly cool */
   --ink-2:        #1f2937;   /* secondary text */
   --mute:         #4b5563;   /* body muted */
   --mute-2:       #6b7280;   /* very muted */
 
-  --accent:       #1f5fbf;   /* academic blue (links / CTA) */
-  --accent-strong:#1c54a8;   /* hover */
-  --accent-soft:  #e8f0fb;   /* tinted backgrounds, sparingly */
+  --accent:       #4338ca;   /* indigo-700 — links / CTA */
+  --accent-strong:#3730a3;   /* indigo-800 — hover */
+  --accent-soft:  #eef2ff;   /* indigo-50 — tinted backgrounds */
+  --accent-dim:   #c7d2fe;   /* indigo-200 — soft details */
 
   /* —— Type scale (fluid) —— */
   --fs-display:  clamp(2rem, 4.6vw, 3.25rem);
@@ -187,10 +188,14 @@ em {
    Paper header
    ============================================================ */
 .paper-header {
+  position: relative;
   padding: calc(var(--nav-h) + var(--sp-7)) 0 var(--sp-7);
   text-align: center;
   border-bottom: 1px solid var(--line);
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 75% 55% at 50% -8%,
+                    rgba(67, 56, 202, 0.07), transparent 70%),
+    var(--bg);
 }
 
 .venue {
@@ -201,6 +206,7 @@ em {
   text-transform: uppercase;
   color: var(--accent);
   background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
   padding: 5px 12px;
   border-radius: 999px;
   margin-bottom: var(--sp-5);
@@ -343,6 +349,15 @@ em {
   color: var(--ink);
   margin: 0 0 var(--sp-4);
   text-align: center;
+}
+.section-title:not(.section-title-sm)::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin: var(--sp-2) auto 0;
+  border-radius: 2px;
+  background: var(--accent);
 }
 .section-title-sm {
   font-size: 1.05rem;
