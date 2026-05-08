@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SteerSeg: Attention Steering for Reasoning Video Segmentation</title>
+  <meta name="description" content="SteerSeg: a lightweight framework that identifies attention misalignment as the key bottleneck in attention-based grounding for reasoning video segmentation." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SteerSeg: Attention Steering for Reasoning Video Segmentation" />
+  <meta property="og:description" content="A lightweight framework that steers attention at its source through learnable soft prompts and reasoning-guided CoT." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="badge">Coming Soon</div>
+      <h1 class="title">SteerSeg</h1>
+      <p class="subtitle">Attention Steering for Reasoning Video Segmentation</p>
+
+      <div class="authors">
+        <span class="author">Ali Cheraghian</span>
+        <span class="dot">&middot;</span>
+        <span class="author">Hamidreza Dastmalchi</span>
+        <span class="dot">&middot;</span>
+        <span class="author">Abdelwahed Khamis</span>
+        <span class="dot">&middot;</span>
+        <span class="author">Morteza Saberi</span>
+        <span class="dot">&middot;</span>
+        <span class="author">Aijun An</span>
+        <span class="dot">&middot;</span>
+        <span class="author">Lars Petersson</span>
+      </div>
+
+      <div class="links">
+        <a class="btn disabled" aria-disabled="true" title="Coming soon">
+          <span class="icon">&#128196;</span>
+          Paper
+          <span class="soon">soon</span>
+        </a>
+        <a class="btn disabled" aria-disabled="true" title="Coming soon">
+          <span class="icon">&#119909;</span>
+          arXiv
+          <span class="soon">soon</span>
+        </a>
+        <a class="btn disabled" aria-disabled="true" title="Coming soon">
+          <span class="icon">&#128187;</span>
+          Code
+          <span class="soon">soon</span>
+        </a>
+        <a class="btn disabled" aria-disabled="true" title="Coming soon">
+          <span class="icon">&#128202;</span>
+          Data
+          <span class="soon">soon</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- TL;DR -->
+    <section class="section tldr-section">
+      <div class="container">
+        <div class="tldr">
+          <span class="tldr-label">TL;DR</span>
+          <p>
+            SteerSeg steers attention <em>at its source</em> by training a small set of learnable
+            soft prompts on a frozen LVLM, paired with reasoning-guided Chain-of-Thought. This
+            produces spatially concentrated attention maps that translate into accurate point
+            prompts for reasoning video segmentation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaser figure -->
+    <section class="section">
+      <div class="container">
+        <figure class="teaser-figure">
+          <img src="teaser.png" alt="Diagnostic study and effect of attention refinement on masking for the query 'a white dog with gray patches'. Raw and contrast attention produce ambiguous masks, while soft prompts and CoT reasoning yield concentrated attention and correct masks." />
+          <figcaption>
+            <strong>(a)</strong> A diagnostic study reveals a discrepancy between reasoning and grounding: the LVLM often identifies the correct target object, yet the corresponding attention remains poorly localized, leading to inaccurate masks.
+            <strong>(b)</strong> Effect of attention refinement on segmentation. Raw and contrast-based attention produce ambiguous localization, while soft prompts and CoT reasoning progressively improve attention quality and segmentation accuracy.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    <section class="section alt">
+      <div class="container">
+        <h2>Highlights</h2>
+        <div class="highlights">
+          <div class="card">
+            <div class="card-icon">&#127919;</div>
+            <h3>Steer at the source</h3>
+            <p>Reshape attention via input-level conditioning instead of post-hoc patching of attention maps.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#129504;</div>
+            <h3>CoT-guided reasoning</h3>
+            <p>Chain-of-Thought attributes disambiguate similar objects and direct attention to the correct instance.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#10024;</div>
+            <h3>Frozen LVLM, learnable prompts</h3>
+            <p>Keeps the LVLM and segmentation model frozen; only a small set of soft prompts is trained, preserving pretrained reasoning while adapting grounding.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128640;</div>
+            <h3>Strong generalization</h3>
+            <p>Trained only on Ref-YouTube-VOS, yet generalizes across diverse video segmentation benchmarks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Qualitative Results</h2>
+          <p class="muted">Selected segmentation results with the input expression overlaid. Hover or tap a clip to play; click to enlarge.</p>
+        </div>
+
+        <div class="video-grid" id="video-grid">
+          <!-- video tiles inserted by script -->
+        </div>
+      </div>
+    </section>
+
+    <!-- BibTeX placeholder -->
+    <section class="section alt">
+      <div class="container narrow">
+        <h2>Citation</h2>
+        <p class="muted">BibTeX will be available with the paper release.</p>
+        <pre class="bibtex">@article{steerseg2026,
+  title   = {SteerSeg: Attention Steering for Reasoning Video Segmentation},
+  author  = {Cheraghian, Ali and Dastmalchi, Hamidreza and Khamis, Abdelwahed and
+             Saberi, Morteza and An, Aijun and Petersson, Lars},
+  year    = {2026},
+  note    = {Coming soon}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 SteerSeg authors. Project page is a teaser; details coming soon.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+    <div class="lightbox-content">
+      <video id="lightbox-video" controls playsinline></video>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

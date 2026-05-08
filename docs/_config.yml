@@ -1,0 +1,8 @@
+title: SteerSeg
+description: Project page for SteerSeg
+theme: null
+plugins: []
+include:
+  - static
+exclude:
+  - README.md
