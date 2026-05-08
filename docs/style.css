@@ -249,7 +249,9 @@ em {
 }
 .affiliations li { white-space: nowrap; }
 
-/* —— Buttons —— */
+/* —— Buttons ——
+   .btn is the secondary (outlined) baseline.
+   .btn-primary is the single high-emphasis CTA per group. */
 .links {
   display: flex;
   flex-wrap: wrap;
@@ -262,9 +264,9 @@ em {
   gap: var(--sp-2);
   padding: 8px 16px;
   height: 40px;
-  background: var(--ink);
-  color: #ffffff;
-  border: 1px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-2);
   border-radius: 999px;
   font-size: 0.88rem;
   font-weight: 500;
@@ -273,10 +275,20 @@ em {
               color var(--t), transform var(--t);
 }
 .btn:hover {
-  background: var(--ink-2);
-  color: #ffffff;
+  border-color: var(--ink);
+  color: var(--ink);
   text-decoration: none;
   transform: translateY(-1px);
+}
+.btn-primary {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+.btn-primary:hover {
+  background: var(--ink-2);
+  border-color: var(--ink-2);
+  color: #ffffff;
 }
 .btn .ico {
   width: 16px;
@@ -292,6 +304,7 @@ em {
 .btn[aria-disabled="true"]:hover {
   background: var(--bg-alt);
   color: var(--mute);
+  border-color: var(--line-2);
   transform: none;
 }
 .soon {
@@ -316,10 +329,6 @@ em {
   background: var(--bg-alt);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-}
-.section-teaser {
-  padding-top: var(--sp-7);
-  padding-bottom: var(--sp-7);
 }
 .section-thin {
   padding: var(--sp-6) 0;
@@ -395,6 +404,17 @@ em {
   line-height: 1.65;
 }
 .figure figcaption strong { color: var(--ink); font-weight: 600; }
+
+/* —— Hero-mounted teaser —— */
+.hero-figure {
+  margin-top: var(--sp-6);
+  text-align: left;
+}
+.hero-figure figcaption {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /* ============================================================
    Abstract & prose
