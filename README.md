@@ -70,6 +70,7 @@ score fusing **frame-level** and **video-level** signals.
 ## ✨ Highlights
 
 - 🪶 **Tiny footprint** — only two soft prompts (~480 KB) trained; everything else stays frozen.
+- 🧩 **Plug-and-play backbones** — Qwen2.5-VL · Qwen2-VL · LLaVA-OneVision · InternVL3.
 - 🎯 **Cross-scale attention fusion** — weighted Pearson score over frame + video rollouts.
 - ⚡ **Skip training** — pre-trained soft prompts ship with the repo; jump straight to inference.
 
@@ -108,14 +109,14 @@ cd ../..
 
 ## 🧠 Model Checkpoints
 
-All checkpoints land under `ckpts/`. You'll need two: **SAM 2** and the **Qwen2.5-VL-7B** backbone.
+All checkpoints land under `ckpts/`. The minimum to run inference is **SAM 2** + **Qwen2.5-VL-7B**.
 
 ```bash
 pip install "huggingface_hub[cli]"
 mkdir -p ckpts
 ```
 
-**SAM 2**
+**SAM 2 — required**
 
 ```bash
 mkdir -p ckpts/sam2-hiera-large
@@ -124,15 +125,47 @@ wget -P ckpts/sam2-hiera-large/ \
 cp third_parts/sam2/sam2/configs/sam2/sam2_hiera_l.yaml ckpts/sam2-hiera-large/
 ```
 
-**Qwen2.5-VL-7B**
+**Vision-Language backbone**
+
+<table>
+<thead>
+<tr><th>Backbone</th><th>Role</th><th>Hugging Face ID</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><b>Qwen2.5-VL-7B</b> ⭐</td>
+  <td>Headline pipeline</td>
+  <td><code>Qwen/Qwen2.5-VL-7B-Instruct</code></td>
+</tr>
+<tr>
+  <td>Qwen2-VL-7B</td>
+  <td>Ablation</td>
+  <td><code>Qwen/Qwen2-VL-7B-Instruct</code></td>
+</tr>
+<tr>
+  <td>LLaVA-OneVision-7B</td>
+  <td>Ablation</td>
+  <td><code>llava-hf/llava-onevision-qwen2-7b-ov-hf</code></td>
+</tr>
+<tr>
+  <td>InternVL3-8B</td>
+  <td>Ablation</td>
+  <td><code>OpenGVLab/InternVL3-8B-hf</code></td>
+</tr>
+</tbody>
+</table>
 
 ```bash
+# Headline backbone
 huggingface-cli download Qwen/Qwen2.5-VL-7B-Instruct \
   --local-dir ckpts/Qwen2.5-VL-7B-Instruct
+
+# Any other backbone
+huggingface-cli download <HF_ID> --local-dir ckpts/<dir>
 ```
 
 > [!NOTE]
-> **Pre-trained soft prompts** (~480 KB) already ship in this repo under
+> **Pre-trained soft prompts** (~480 KB each) already ship in this repo under
 > `frame_only/`, `video_only/`, `frame_only_sp_hw_n64_oneEpoch_extval/`, and
 > `video_only_sp_hw_n64_oneEpoch_extval/`. You can **skip training** and jump
 > straight to inference.
@@ -175,7 +208,8 @@ Mirror: <https://youtube-vos.org/dataset/rvos/>
 rvos/
 ├── ckpts/
 │   ├── sam2-hiera-large/
-│   └── Qwen2.5-VL-7B-Instruct/
+│   ├── Qwen2.5-VL-7B-Instruct/
+│   └── ...                       # other backbones (optional)
 └── datasets/RVOSJoint/
     ├── davis17/
     ├── ReasonVOS/
