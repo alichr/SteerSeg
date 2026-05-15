@@ -10,11 +10,13 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.10-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![CUDA](https://img.shields.io/badge/CUDA-12.8-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-downloads)
 [![License](https://img.shields.io/badge/License-Apache_2.0-1f6feb?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
+[![Project Page](https://img.shields.io/badge/🌐_Project_Page-steerseg.github.io-0a7d7d?style=for-the-badge)](https://steerseg.github.io/)
 
 <br/>
 
 <sub>
 
+**[ 🌐 Project Page ](https://steerseg.github.io/)** &nbsp;·&nbsp;
 **[ 📖 Details ](video-reason-segmentaion/docs/DETAILS.md)** &nbsp;·&nbsp;
 **[ 🚀 Setup ](#-setup)** &nbsp;·&nbsp;
 **[ 🧠 Models ](#-model-checkpoints)** &nbsp;·&nbsp;
